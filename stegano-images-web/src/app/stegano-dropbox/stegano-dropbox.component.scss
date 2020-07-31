@@ -1,0 +1,13 @@
+@mixin stegano-dropbox-theme($theme, $stegano-colors) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, accent);
+    $foreground: map-get($theme, foreground);
+
+    .dropbox {
+        width: 80%;
+        height: 200px;
+        // margin: 0 auto;
+        background-color: grey;
+    }
+}

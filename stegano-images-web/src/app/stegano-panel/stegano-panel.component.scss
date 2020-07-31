@@ -1,0 +1,13 @@
+
+@mixin stegano-panel-theme($theme, $stegano-colors) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, accent);
+    $foreground: map-get($theme, foreground);
+
+    .panel-wrapper {
+        width: 60%;
+        margin: 0 auto;
+        background-color: black;
+    }
+}

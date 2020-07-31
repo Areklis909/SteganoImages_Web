@@ -1,0 +1,50 @@
+
+$dark-primary-text: black;
+$light-primary-text: grey;
+
+$stegano-color-set: (
+  50: #c1c9ce,
+  100: #96a8af,
+  200: #6c7a81,
+  300: #5e717a,
+  400: #78909c,
+  500: #607d8b,
+  600: #546e7a,
+  700: #455a64,
+  800: #182227,
+  900: #05090a,
+  A100: #3b84a3,
+  A200: #b0bec5,
+  A400: #78909c,
+  A700: #455a64,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  )
+);
+
+$stegano-colors: (
+    tab-label-font-color: white,
+    tab-header-ink-bar: white,
+    stegano-logo-font: white,
+    stegano-arrow-down: white,
+    stegano-arrow-down-hover: grey
+);
+
+$primary-palette: mat-palette($stegano-color-set);
+$accent-palette: mat-palette($mat-amber);
+$warn-palette: mat-palette($mat-red);
+
+$stegano-theme: mat-dark-theme($primary-palette, $accent-palette, $warn-palette);
