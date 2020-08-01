@@ -1,15 +1,15 @@
 <mat-toolbar>
-    <button mat-icon-button color="primary" [matMenuTriggerFor]="menu" (click)="toggleMenu()">
+    <button mat-icon-button color="primary" [matMenuTriggerFor]="menu" (click)="toggleMenu()" class="menu-button">
         <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-raised-button>
+        <button mat-menu-item>
             Encode
         </button>
-        <button mat-raised-button>
+        <button mat-menu-item>
             Decode
         </button>
-        <button mat-raised-button>
+        <button mat-menu-item>
             About
         </button>
     </mat-menu>

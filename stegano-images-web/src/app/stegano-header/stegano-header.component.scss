@@ -1,6 +1,8 @@
 
 @mixin stegano-header-theme($theme, $stegano-colors) {
 
-    
+    button.menu-button mat-icon {
+        color: map-get($stegano-colors, stegano-menu-button);
+    }
 
 }

@@ -1,13 +1,28 @@
 <mat-card>
     <mat-card-content>
-        <mat-form-field appearance="fill">
-            <mat-label>Message to be encoded into an image</mat-label>
-            <textarea matInput></textarea>
-        </mat-form-field>
-        <app-stegano-dropbox></app-stegano-dropbox>
+        <mat-vertical-stepper #stepper [linear]="true">
+            <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>
+                        Message
+                    </ng-template>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Message to be encoded into an image</mat-label>
+                        <textarea #messageText matInput class="msg-input" formControlName="firstCtrl"></textarea>
+                    </mat-form-field>
+                </form>
+                <div>
+                    <button mat-raised-button (click)="messageText.value = ''">Clear</button>
+                </div>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup">
+                <form [formGroup]="secondFormGroup">
+                    <ng-template matStepLabel>
+                        Image
+                    </ng-template>
+                    <app-stegano-dropbox></app-stegano-dropbox>
+                </form>
+            </mat-step>
+        </mat-vertical-stepper>
     </mat-card-content>
-    <mat-card-actions>
-        <button mat-button>Start</button>
-        <button mat-button>Clear all</button>
-    </mat-card-actions>
 </mat-card>

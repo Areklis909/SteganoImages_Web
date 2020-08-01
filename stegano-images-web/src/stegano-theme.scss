@@ -40,7 +40,12 @@ $stegano-colors: (
     tab-header-ink-bar: white,
     stegano-logo-font: white,
     stegano-arrow-down: white,
-    stegano-arrow-down-hover: grey
+    stegano-arrow-down-hover: grey,
+    stegano-panel-background: black,
+    stegano-menu-button: white,
+    stegano-body-background: black,
+    stegano-dropbox: rgb(82, 78, 78),
+    stegano-stepper-font: black
 );
 
 $primary-palette: mat-palette($stegano-color-set);

@@ -7,6 +7,8 @@
 @import '../src/app/stegano-body/stegano-body.component.scss';
 @import '../src/app/stegano-panel/stegano-panel.component.scss';
 @import '../src/app/stegano-dropbox/stegano-dropbox.component.scss';
+@import '../src/app/stegano-header/stegano-header.component.scss';
+@import '../src/app/stegano-encode/stegano-encode.component.scss';
 
 
 @import url('https://fonts.googleapis.com/css?family=Rowdies&display=swap');
@@ -15,6 +17,12 @@
 @include stegano-body-theme($stegano-theme, $stegano-colors);
 @include stegano-panel-theme($stegano-theme, $stegano-colors);
 @include stegano-dropbox-theme($stegano-theme, $stegano-colors);
+@include stegano-header-theme($stegano-theme, $stegano-colors);
+@include stegano-encode-theme($stegano-theme, $stegano-colors);
+
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html {
+    scroll-behavior: smooth;
+}

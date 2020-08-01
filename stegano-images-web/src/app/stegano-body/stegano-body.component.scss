@@ -1,7 +1,6 @@
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 
 @mixin stegano-body-theme($theme, $stegano-colors) {
-
     div.welcome-wrapper {
         min-height: 100%;
         background-image: url("../../assets/matrix-wallpaper.png");
@@ -9,18 +8,16 @@
     }
 
     div.body-wrapper {
-        display: flex;
-        flex-direction: column;
-        background-color: black;
+        background-color: map-get($stegano-colors, stegano-body-background);
         min-height: 100%;
     }
-    
+
     .mat-drawer-container {
         background-color: transparent;
     }
-    
+
     .centered-logo {
-        font-family: 'Rowdies', sans-serif;
+        font-family: "Rowdies", sans-serif;
         font-size: xx-large;
         color: map-get($stegano-colors, stegano-logo-font);
         position: absolute;
@@ -39,10 +36,5 @@
 
     i.button-label:hover {
         color: map-get($stegano-colors, stegano-arrow-down-hover);
-    }
-
-    div.menu-container {
-        display: flex;
-        flex-direction: column;
     }
 }

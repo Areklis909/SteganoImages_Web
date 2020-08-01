@@ -1,0 +1,15 @@
+@mixin stegano-encode-theme($theme, $stegano-colors) {
+
+    .mat-form-field {
+        width: 80%;
+    }
+
+    mat-vertical-stepper .mat-step-icon-content {
+        color: map-get($stegano-colors, stegano-stepper-font);
+    }
+
+    .mat-raised-button {
+        background-color: rgb(64, 167, 167);
+        color: white;
+    }
+}

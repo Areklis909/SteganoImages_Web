@@ -5,9 +5,9 @@
     $foreground: map-get($theme, foreground);
 
     .dropbox {
-        width: 80%;
+        width: auto;
         height: 200px;
-        // margin: 0 auto;
-        background-color: grey;
+        margin: 0 auto;
+        background-color: map-get($stegano-colors, stegano-dropbox);
     }
 }
