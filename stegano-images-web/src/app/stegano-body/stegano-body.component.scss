@@ -1,40 +1,9 @@
 @import "~@angular/material/theming";
 
 @mixin stegano-body-theme($theme, $stegano-colors) {
-    div.welcome-wrapper {
-        min-height: 100%;
-        background-image: url("../../assets/matrix-wallpaper.png");
-        position: relative;
-    }
 
     div.body-wrapper {
         background-color: map-get($stegano-colors, stegano-body-background);
         min-height: 100%;
-    }
-
-    .mat-drawer-container {
-        background-color: transparent;
-    }
-
-    .centered-logo {
-        font-family: "Rowdies", sans-serif;
-        font-size: xx-large;
-        color: map-get($stegano-colors, stegano-logo-font);
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    i.button-label {
-        color: map-get($stegano-colors, stegano-arrow-down);
-        position: absolute;
-        top: 90%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    i.button-label:hover {
-        color: map-get($stegano-colors, stegano-arrow-down-hover);
     }
 }

@@ -1,0 +1,8 @@
+@mixin stegano-encode-agg-theme($theme, $stegano-colors) {
+    .panel-wrapper {
+        width: 60%;
+        margin: 0 auto;
+        background-color: map-get($stegano-colors, stegano-panel-background);
+        margin-top: 20px;
+    }
+}

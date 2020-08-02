@@ -20,6 +20,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SteganoDecodeComponent } from './stegano-decode/stegano-decode.component';
+import { SteganoAboutComponent } from './stegano-about/stegano-about.component';
+import { SteganoWelcomeComponent } from './stegano-welcome/stegano-welcome.component';
+import { SteganoEncodeAggComponent } from './stegano-encode-agg/stegano-encode-agg.component';
+import { SteganoDecodeAggComponent } from './stegano-decode-agg/stegano-decode-agg.component';
+import { SteganoAboutAggComponent } from './stegano-about-agg/stegano-about-agg.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +34,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     SteganoPanelComponent,
     SteganoHeaderComponent,
     SteganoEncodeComponent,
-    SteganoDropboxComponent
+    SteganoDropboxComponent,
+    SteganoDecodeComponent,
+    SteganoAboutComponent,
+    SteganoWelcomeComponent,
+    SteganoEncodeAggComponent,
+    SteganoDecodeAggComponent,
+    SteganoAboutAggComponent
   ],
   imports: [
     BrowserModule,

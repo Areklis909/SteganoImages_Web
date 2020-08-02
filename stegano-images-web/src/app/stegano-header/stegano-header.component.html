@@ -3,14 +3,20 @@
         <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-            Encode
-        </button>
-        <button mat-menu-item>
-            Decode
-        </button>
-        <button mat-menu-item>
-            About
-        </button>
+        <a routerLink="/encode">
+            <button mat-menu-item>
+                Encode
+            </button>
+        </a>
+        <a routerLink="/decode">
+            <button mat-menu-item>
+                Decode
+            </button>
+        </a>
+        <a routerLink="/about">
+            <button mat-menu-item>
+                About
+            </button>
+        </a>
     </mat-menu>
 </mat-toolbar>

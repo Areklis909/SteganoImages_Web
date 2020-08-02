@@ -14,7 +14,6 @@ export class SteganoDropboxComponent implements AfterViewInit {
   constructor() { }
 
   ngAfterViewInit(): void {
-    console.log(this.dropbox.nativeElement.classList);
   }
 
   private dropboxIdle(): void {

@@ -10,7 +10,6 @@ export class SteganoPanelComponent implements OnInit {
 
   constructor() { }
 
-
   public color: ThemePalette = 'primary';
 
   ngOnInit(): void {

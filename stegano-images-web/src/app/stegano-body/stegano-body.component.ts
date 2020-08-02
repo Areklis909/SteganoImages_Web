@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SteganoConnectorService } from '../stegano-connector.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-stegano-body',
@@ -10,20 +10,19 @@ export class SteganoBodyComponent implements OnInit {
 
   drawerOpened = false;
 
-  constructor(private steganoConnector: SteganoConnectorService) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.steganoConnector.menuToggleSubject.subscribe((menuVisible: boolean) => {
-      this.drawerOpened = menuVisible;
-    });
   }
 
   public menuClicked(): void {
-    console.log('Menu toggle');
   }
 
   public arrowDownClicked(): void {
-    console.log('Arrow down clicked');
+    this.router.navigate(['/about']);
+    // const goToBody = document.createElement('a');
+    // goToBody.href = '#body';
+    // goToBody.click();
   }
 
 }
