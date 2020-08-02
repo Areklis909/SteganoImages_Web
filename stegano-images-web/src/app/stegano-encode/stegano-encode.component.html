@@ -12,7 +12,7 @@
                     </mat-form-field>
                 </form>
                 <div>
-                    <button mat-raised-button (click)="messageText.value = ''">Clear</button>
+                    <button mat-raised-button (click)="firstFormGroup.reset()">Clear</button>
                 </div>
             </mat-step>
             <mat-step [stepControl]="secondFormGroup">

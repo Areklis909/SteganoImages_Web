@@ -11,13 +11,14 @@ export class SteganoEncodeComponent implements OnInit {
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  readonly emptyString = '';
 
   ngOnInit(): void {
     this.firstFormGroup = this.formBuilder.group({
-      firstCtrl: ['', Validators.required]
+      firstCtrl: [this.emptyString, Validators.required]
     });
     this.secondFormGroup = this.formBuilder.group({
-      secondCtrl: ['', Validators.required]
+      secondCtrl: [this.emptyString, Validators.required]
     });
   }
 }
