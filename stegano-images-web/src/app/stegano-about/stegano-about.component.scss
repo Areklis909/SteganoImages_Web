@@ -1,0 +1,21 @@
+
+
+@mixin stegano-about-theme($theme, $stegano-colors) {
+    .example-image {
+        max-width: 100%;
+        max-height: 100%;
+    }
+    
+    p.acapit {
+        font-size: large;
+        font-family: "Exo", sans-serif;
+    }
+    
+    a.lnk:link {
+        color: map-get($stegano-colors, stegano-link);
+    }
+    
+    a.lnk:visited {
+        color: map-get($stegano-colors, stegano-link-visited);
+    }
+}

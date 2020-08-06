@@ -9,6 +9,7 @@
 @import '../src/app/stegano-dropbox/stegano-dropbox.component.scss';
 @import '../src/app/stegano-header/stegano-header.component.scss';
 @import '../src/app/stegano-encode/stegano-encode.component.scss';
+@import '../src/app/stegano-about/stegano-about.component.scss';
 @import '../src/app/stegano-welcome/stegano-welcome.component.scss';
 @import '../src/app/stegano-encode-agg/stegano-encode-agg.component.scss';
 @import '../src/app/stegano-decode-agg/stegano-decode-agg.component.scss';
@@ -16,6 +17,8 @@
 
 
 @import url('https://fonts.googleapis.com/css?family=Rowdies&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Exo&display=swap');
+
 
 @include angular-material-theme($stegano-theme);
 @include stegano-body-theme($stegano-theme, $stegano-colors);
@@ -27,6 +30,7 @@
 @include stegano-encode-agg-theme($stegano-theme, $stegano-colors);
 @include stegano-decode-agg-theme($stegano-theme, $stegano-colors);
 @include stegano-about-agg-theme($stegano-theme, $stegano-colors);
+@include stegano-about-theme($stegano-theme, $stegano-colors);
 
 
 html, body { height: 100%; }

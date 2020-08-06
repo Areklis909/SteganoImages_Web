@@ -46,7 +46,9 @@ $stegano-colors: (
     stegano-body-background: black,
     stegano-dropbox: rgb(82, 78, 78),
     stegano-dropbox-active: grey,
-    stegano-stepper-font: black
+    stegano-stepper-font: black,
+    stegano-link: greenyellow,
+    stegano-link-visited: orange
 );
 
 $primary-palette: mat-palette($stegano-color-set);
