@@ -20,7 +20,7 @@
                     <ng-template matStepLabel>
                         Image
                     </ng-template>
-                    <app-stegano-dropbox></app-stegano-dropbox>
+                    <app-stegano-dropbox-encode [textToEncode]="messageText.value"></app-stegano-dropbox-encode>
                 </form>
             </mat-step>
         </mat-vertical-stepper>

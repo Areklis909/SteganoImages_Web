@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-stegano-dropbox',
@@ -8,13 +8,13 @@ import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 export class SteganoDropboxComponent implements AfterViewInit {
 
   @ViewChild('dropbox') dropbox: ElementRef;
+  @Output() ondrop: EventEmitter<any> = new EventEmitter();
   readonly activeClass = 'active';
   readonly idleClass = 'idle';
 
   constructor() { }
 
-  ngAfterViewInit(): void {
-  }
+  ngAfterViewInit(): void { }
 
   private dropboxIdle(): void {
     this.dropboxClassOperation(this.activeClass, this.idleClass);
@@ -37,23 +37,27 @@ export class SteganoDropboxComponent implements AfterViewInit {
   }
 
   public handleDragEnter(event: Event): void {
+
     this.handleDragFamilyEvent(event);
     this.dropboxActive();
   }
 
   public handleDragOver(event: Event): void {
+
     this.handleDragFamilyEvent(event);
   }
 
   public handleDragLeave(event: Event): void {
+
     this.handleDragFamilyEvent(event);
     this.dropboxIdle();
   }
 
-  public handleDrop(event: Event): void {
+  public handleDrop(event: any): void {
+
     this.handleDragFamilyEvent(event);
     this.dropboxIdle();
-    // TODO: send to server, do stuff....
+    this.ondrop.emit(event);
   }
 
 }

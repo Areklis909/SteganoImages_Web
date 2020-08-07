@@ -1,6 +1,6 @@
-<div #dropbox class="dropbox idle" fxLayout="column" fxLayoutAlign="center" gdAlignColumns="center"
+<div #dropbox id="upload" class="dropbox idle" fxLayout="column" fxLayoutAlign="center" gdAlignColumns="center"
     (dragenter)="handleDragEnter($event)" (dragover)="handleDragOver($event)" (dragleave)="handleDragLeave($event)"
-    (drop)="handleDrop($event)">
+     (drop)="handleDrop($event)">
     <div>
         Drag and drop image here to start
     </div>

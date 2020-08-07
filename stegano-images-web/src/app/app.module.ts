@@ -26,6 +26,9 @@ import { SteganoWelcomeComponent } from './stegano-welcome/stegano-welcome.compo
 import { SteganoEncodeAggComponent } from './stegano-encode-agg/stegano-encode-agg.component';
 import { SteganoDecodeAggComponent } from './stegano-decode-agg/stegano-decode-agg.component';
 import { SteganoAboutAggComponent } from './stegano-about-agg/stegano-about-agg.component';
+import { HttpClientModule } from '@angular/common/http';
+import { SteganoDropboxEncodeComponent } from './stegano-dropbox-encode/stegano-dropbox-encode.component';
+import { SteganoDropboxDecodeComponent } from './stegano-dropbox-decode/stegano-dropbox-decode.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,9 @@ import { SteganoAboutAggComponent } from './stegano-about-agg/stegano-about-agg.
     SteganoWelcomeComponent,
     SteganoEncodeAggComponent,
     SteganoDecodeAggComponent,
-    SteganoAboutAggComponent
+    SteganoAboutAggComponent,
+    SteganoDropboxEncodeComponent,
+    SteganoDropboxDecodeComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +62,8 @@ import { SteganoAboutAggComponent } from './stegano-about-agg/stegano-about-agg.
     MatInputModule,
     MatStepperModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
