@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { EncodeMessage } from '../stegano-dropbox/messages';
+import { serverUrl } from '../stegano-dropbox/messages';
 
 @Component({
   selector: 'app-stegano-dropbox-encode',
@@ -12,7 +12,7 @@ import { EncodeMessage } from '../stegano-dropbox/messages';
 export class SteganoDropboxEncodeComponent implements OnInit {
 
   @Input() textToEncode: string;
-  serverUrl = '/encode';
+  encodeApi = '/encode';
   resultImage: Observable<any>;
 
   constructor(private http: HttpClient) { }
@@ -26,18 +26,13 @@ export class SteganoDropboxEncodeComponent implements OnInit {
       return;
     }
 
-    const msg: EncodeMessage = {
-      file: { file: event.dataTransfer.files[0] },
-      message: this.textToEncode
-    };
+    const formMsg = new FormData();
+    console.log(event.dataTransfer.files[0]);
+    const file = event.dataTransfer.files[0];
+    formMsg.append('image', file, file.name);
+    formMsg.append('msg', this.textToEncode);
 
-    const opts = {
-      headers: new HttpHeaders({
-        'Content-Type': 'multipart/form-data'
-      })
-    };
-
-    this.resultImage = this.http.post<any>(this.serverUrl, msg, opts).pipe(
+    this.resultImage = this.http.post<any>(`${serverUrl}${this.encodeApi}`, formMsg).pipe(
       catchError((err) => {
         return of(err);
       })

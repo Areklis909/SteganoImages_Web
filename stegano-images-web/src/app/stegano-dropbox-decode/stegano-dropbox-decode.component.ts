@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Message } from '../stegano-dropbox/messages';
+import { Message, serverUrl } from '../stegano-dropbox/messages';
 
 @Component({
   selector: 'app-stegano-dropbox-decode',
@@ -11,7 +11,7 @@ import { Message } from '../stegano-dropbox/messages';
 })
 export class SteganoDropboxDecodeComponent implements OnInit {
 
-  serverUrl = '/decode';
+  decodeApi = '/decode';
   resultImage: Observable<any>;
 
   constructor(private http: HttpClient) { }
@@ -35,7 +35,7 @@ export class SteganoDropboxDecodeComponent implements OnInit {
       })
     };
 
-    this.resultImage = this.http.post<any>(this.serverUrl, msg, opts).pipe(
+    this.resultImage = this.http.post<any>(`${serverUrl}${this.decodeApi}`, msg, opts).pipe(
       catchError((err) => {
         return of(err);
       })

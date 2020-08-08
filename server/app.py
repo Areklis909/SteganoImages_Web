@@ -1,0 +1,100 @@
+from flask import Flask
+from flask import request
+from flask_cors import CORS
+import hashlib
+import time
+import imghdr
+import subprocess
+
+
+class NoImageException(Exception):
+
+    def __init__(self, message='Image not found in the message'):
+
+        self.message = message
+        super().__init__(self.message)
+
+
+class IncorrectImageFormatException(Exception):
+
+    def __init__(self, formats, message="Format of the image is not correct. Accepted formats: "):
+
+        self.message = message + str(formats)
+        super().__init__(self.message)
+
+
+class ImageHandler:
+
+    def __init__(self, image, msg, path):
+        self.acceptedFormats = ['jpg', 'png']
+        self.image = image
+        self.msg = msg
+        self.dir = path
+        self.basename = ''
+        self.ext = ''
+        self.fullPath = ''
+        if(self.formatOk() == False):
+            raise IncorrectImageFormatException(self.acceptedFormats)
+
+    def hashImage(self):
+
+        sha = hashlib.sha256(self.image.filename.encode('utf-8') + self.msg.encode('utf-8') +
+                             str(time.time_ns()).encode('utf-8'))
+        return sha.hexdigest()
+
+    def saveImage(self):
+
+        self.basename = self.hashImage()
+        self.fullPath = self.dir + self.basename + '.' + self.getFormat()
+        if(self.dir[-1] != '/'):
+            self.dir.append('/')
+        self.image.save(self.fullPath)
+
+    def formatOk(self):
+
+        self.ext = self.image.filename.split('.')[1]
+        return self.ext in self.acceptedFormats
+
+    def getFormat(self):
+
+        return self.ext
+
+    def getFullPath(self):
+
+        return self.fullPath
+
+    def getBasename(self):
+
+        return self.basename
+
+    def getOutputFilename(self):
+
+        return self.dir + self.getBasename() + '_output' + '.' + self.getFormat()
+
+
+def extractImage():
+
+    if(len(request.files) == 0):
+        raise NoImageException()
+    return request.files['image']
+
+
+app = Flask(__name__)
+CORS(app)
+
+@app.route('/encode', methods=['POST'])
+def encode():
+
+    msg = request.form['msg']
+    imageHandler = ImageHandler(extractImage(), msg, 'images/')
+    imageHandler.saveImage()
+    subprocess.call(['../../build_stegano/src/stegano', '--mode', 'encoding', '--input',
+                     imageHandler.getFullPath(), '--output', imageHandler.getOutputFilename(), '--message', msg])
+    return 'OK'
+
+
+@app.route('/decode', methods=['POST'])
+def decode():
+
+    image = extractImage()
+    return 'OK'
