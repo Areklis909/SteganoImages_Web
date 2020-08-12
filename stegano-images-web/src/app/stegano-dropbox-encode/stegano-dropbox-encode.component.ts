@@ -27,19 +27,30 @@ export class SteganoDropboxEncodeComponent implements OnInit {
     }
 
     const formMsg = new FormData();
-    console.log(event.dataTransfer.files[0]);
     const file = event.dataTransfer.files[0];
     formMsg.append('image', file, file.name);
     formMsg.append('msg', this.textToEncode);
 
-    this.resultImage = this.http.post<any>(`${serverUrl}${this.encodeApi}`, formMsg).pipe(
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Accept : 'image/*'
+      }),
+      responseType: 'blob' as 'json',
+      observe: 'response' as const
+    };
+
+    this.resultImage = this.http.post<any>(`${serverUrl}${this.encodeApi}`, formMsg, httpOptions).pipe(
       catchError((err) => {
         return of(err);
       })
     );
 
-    this.resultImage.subscribe((image: any) => {
-      console.log(image);
+    this.resultImage.subscribe((imageBlob: any) => {
+      console.log(imageBlob);
+      const link  = document.createElement('a');
+      link.href = URL.createObjectURL(imageBlob.body);
+      link.download = 'processed';
+      link.click();
     });
   }
 
