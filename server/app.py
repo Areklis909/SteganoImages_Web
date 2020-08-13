@@ -81,7 +81,6 @@ CORS(app)
 
 @app.route('/encode', methods=['POST'])
 def encode():
-
     outputPath = 'output_images/'
     inputPath = 'images/'
     msg = request.form['msg']
@@ -89,11 +88,19 @@ def encode():
     imageHandler.saveImage()
     subprocess.call(['../../build_stegano/src/stegano', '--mode', 'encoding', '--input',
                      imageHandler.getFullPath(), '--output', imageHandler.getOutputFilename(), '--message', msg])
-    return send_from_directory(outputPath, imageHandler.getOutputBasename(), as_attachment=True)
+    response = send_from_directory(outputPath, imageHandler.getOutputBasename(), as_attachment=True)
+    response.headers['Access-Control-Expose-Headers'] = 'Content-Disposition'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Disposition'
+    return response
 
 
 @app.route('/decode', methods=['POST'])
 def decode():
-
-    image = extractImage()
+    inputPath = 'images/'
+    outputPath = 'output_images/'
+    imageHandler = ImageHandler(extractImage(), msg, inputPath, outputPath)
+    imageHandler.saveImage()
+    subprocess.call(['../../build_stegano/src/stegano', '--mode', 'decoding', '--input',
+                imageHandler.getFullPath()])
+    #TODO: implement writing output to the file, open that file and send to the client
     return 'OK'
