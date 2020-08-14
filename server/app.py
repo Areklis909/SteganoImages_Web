@@ -7,7 +7,7 @@ import time
 import imghdr
 import subprocess
 import io
-
+import secrets
 
 class NoImageException(Exception):
 
@@ -25,29 +25,34 @@ class IncorrectImageFormatException(Exception):
 
 class ImageHandler:
 
-    def __init__(self, image, msg, path, outputPath):
-        self.acceptedFormats = ['jpg', 'png']
+    def __init__(self, image, path, outputPath):
+        self.acceptedFormats = ['jpg', 'png', 'bmp']
+        self.formatMap = {
+            'jpg' : 'bmp',
+            'png' : 'png',
+            'bmp' : 'bmp'
+        }
         self.encoding = 'utf-8'
         self.image = image
-        self.msg = msg
         self.dir = path
         self.outDir = outputPath
         self.basename = ''
         self.ext = ''
         self.fullPath = ''
+        if(self.dir[-1] != '/'):
+            self.dir.append('/')
+
         if(self.formatOk() == False):
             raise IncorrectImageFormatException(self.acceptedFormats)
 
-    def hashImage(self):
-        sha = hashlib.sha256(self.image.filename.encode(self.encoding) + self.msg.encode(self.encoding) +
+    def hashImage(self, hashData):
+        sha = hashlib.sha256(self.image.filename.encode(self.encoding) + hashData.encode(self.encoding) +
                              str(time.time_ns()).encode(self.encoding))
         return sha.hexdigest()
 
-    def saveImage(self):
-        self.basename = self.hashImage()
+    def saveImage(self, hashData):
+        self.basename = self.hashImage(hashData)
         self.fullPath = self.dir + self.basename + '.' + self.getFormat()
-        if(self.dir[-1] != '/'):
-            self.dir.append('/')
         self.image.save(self.fullPath)
 
     def formatOk(self):
@@ -55,7 +60,7 @@ class ImageHandler:
         return self.ext in self.acceptedFormats
 
     def getFormat(self):
-        return self.ext
+        return self.formatMap[self.ext]
 
     def getFullPath(self):
         return self.fullPath
@@ -66,8 +71,14 @@ class ImageHandler:
     def getOutputBasename(self):
         return self.getBasename() + '_output' + '.' + self.getFormat()
 
+    def getRawBasename(self):
+        return self.getBasename() + '_output' + '.' + self.ext
+
     def getOutputFilename(self):
         return self.outDir + self.getOutputBasename()
+
+    def getRawOutputFilename(self):
+        return self.outDir + self.getRawBasename()
 
 
 def extractImage():
@@ -83,24 +94,28 @@ CORS(app)
 def encode():
     outputPath = 'output_images/'
     inputPath = 'images/'
+    imageHandler = ImageHandler(extractImage(), inputPath, outputPath)
     msg = request.form['msg']
-    imageHandler = ImageHandler(extractImage(), msg, inputPath, outputPath)
-    imageHandler.saveImage()
+    imageHandler.saveImage(msg)
     subprocess.call(['../../build_stegano/src/stegano', '--mode', 'encoding', '--input',
                      imageHandler.getFullPath(), '--output', imageHandler.getOutputFilename(), '--message', msg])
     response = send_from_directory(outputPath, imageHandler.getOutputBasename(), as_attachment=True)
     response.headers['Access-Control-Expose-Headers'] = 'Content-Disposition'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Disposition'
+    subprocess.call(['rm', imageHandler.getFullPath()])
     return response
 
 
 @app.route('/decode', methods=['POST'])
 def decode():
-    inputPath = 'images/'
-    outputPath = 'output_images/'
-    imageHandler = ImageHandler(extractImage(), msg, inputPath, outputPath)
-    imageHandler.saveImage()
+    inputPath = 'to_decode/'
+    decodedPath = 'decoded/'
+    imageHandler = ImageHandler(extractImage(), inputPath, '')
+    imageHandler.saveImage(secrets.token_hex(16))
+    outputFile = decodedPath + imageHandler.getOutputBasename()
     subprocess.call(['../../build_stegano/src/stegano', '--mode', 'decoding', '--input',
-                imageHandler.getFullPath()])
-    #TODO: implement writing output to the file, open that file and send to the client
-    return 'OK'
+                imageHandler.getFullPath(), '--message-file', outputFile])
+    with open(outputFile) as f:
+        data = f.read()
+    subprocess.call(['rm', imageHandler.getFullPath()])
+    return data

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { serverUrl } from '../stegano-dropbox/messages';
@@ -12,12 +12,17 @@ import { serverUrl } from '../stegano-dropbox/messages';
 export class SteganoDropboxEncodeComponent implements OnInit {
 
   @Input() textToEncode: string;
-  encodeApi = '/encode';
-  resultImage: Observable<any>;
+  readonly encodeApi = '/encode';
+  readonly removeApi = '/remove';
+  readonly contentDisposition = 'Content-Disposition';
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
+  }
+
+  private getFilenameFromHeader(header: string): string {
+    return header.split('=')[1];
   }
 
   public dropped(event: any): void {
@@ -33,23 +38,20 @@ export class SteganoDropboxEncodeComponent implements OnInit {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        Accept : 'image/*'
+        Accept: 'image/*'
       }),
-      responseType: 'blob' as 'json',
-      observe: 'response' as const
+      observe: 'response' as const, // to access the headers
+      responseType: 'blob' as 'json' // important to get response as a binary blob
     };
 
-    this.resultImage = this.http.post<any>(`${serverUrl}${this.encodeApi}`, formMsg, httpOptions).pipe(
+    this.http.post<any>(`${serverUrl}${this.encodeApi}`, formMsg, httpOptions).pipe(
       catchError((err) => {
         return of(err);
       })
-    );
-
-    this.resultImage.subscribe((imageBlob: any) => {
-      console.log(imageBlob);
-      const link  = document.createElement('a');
-      link.href = URL.createObjectURL(imageBlob.body);
-      link.download = 'processed';
+    ).subscribe((response) => {
+      const link = document.createElement('a');
+      link.download = this.getFilenameFromHeader(response.headers.get(this.contentDisposition));
+      link.href = URL.createObjectURL(response.body);
       link.click();
     });
   }

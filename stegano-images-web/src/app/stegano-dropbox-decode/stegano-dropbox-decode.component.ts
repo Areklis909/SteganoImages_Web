@@ -25,25 +25,22 @@ export class SteganoDropboxDecodeComponent implements OnInit {
       return;
     }
 
-    const msg: Message = {
-      file: event.dataTransfer.files[0]
-    };
+    const formMsg = new FormData();
+    const file = event.dataTransfer.files[0];
+    formMsg.append('image', file, file.name);
 
-    const opts = {
+    const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'multipart/form-data'
-      })
+        Accept : '*/*'
+      }),
+      observe: 'response' as const, // to access the headers
+      responseType: 'text' as 'json' // important to get response as a binary blob
     };
 
-    this.resultImage = this.http.post<any>(`${serverUrl}${this.decodeApi}`, msg, opts).pipe(
-      catchError((err) => {
-        return of(err);
-      })
-    );
-
-    this.resultImage.subscribe((image: any) => {
-      console.log(image);
+    this.http.post<string>(`${serverUrl}${this.decodeApi}`, formMsg, httpOptions).subscribe((resp) => {
+      console.log(resp.body);
     });
   }
+
 
 }
