@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { Message, serverUrl } from '../stegano-dropbox/messages';
+import { Observable } from 'rxjs';
+import { serverUrl } from '../stegano-dropbox/messages';
+import { SteganoConnectorService } from '../stegano-connector.service';
 
 @Component({
   selector: 'app-stegano-dropbox-decode',
@@ -14,7 +14,8 @@ export class SteganoDropboxDecodeComponent implements OnInit {
   decodeApi = '/decode';
   resultImage: Observable<any>;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private connector: SteganoConnectorService) { }
 
   ngOnInit(): void {
   }
@@ -24,6 +25,8 @@ export class SteganoDropboxDecodeComponent implements OnInit {
     if (event.dataTransfer.files.length === 0) {
       return;
     }
+
+    this.connector.elementDropped.next(true);
 
     const formMsg = new FormData();
     const file = event.dataTransfer.files[0];
@@ -38,7 +41,7 @@ export class SteganoDropboxDecodeComponent implements OnInit {
     };
 
     this.http.post<string>(`${serverUrl}${this.decodeApi}`, formMsg, httpOptions).subscribe((resp) => {
-      console.log(resp.body);
+      this.connector.decodedMessageSubject.next(resp.body);
     });
   }
 

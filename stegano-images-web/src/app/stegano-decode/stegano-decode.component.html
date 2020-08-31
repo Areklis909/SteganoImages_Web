@@ -3,3 +3,20 @@
         <app-stegano-dropbox-decode></app-stegano-dropbox-decode>
     </mat-card-content>
 </mat-card>
+<mat-card *ngIf="!messageReceived && dropped">
+    <mat-card-content>
+        <mat-progress-spinner [mode]="spinnerMode">
+
+        </mat-progress-spinner>
+    </mat-card-content>
+</mat-card>
+<mat-card *ngIf="messageReceived">
+    <mat-card-content>
+        <div>
+            Decoded message:
+        </div>
+        <div class="decoded">
+            {{ decodedMessage }}
+        </div>
+    </mat-card-content>
+</mat-card>

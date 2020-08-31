@@ -14,6 +14,7 @@
 @import '../src/app/stegano-encode-agg/stegano-encode-agg.component.scss';
 @import '../src/app/stegano-decode-agg/stegano-decode-agg.component.scss';
 @import '../src/app/stegano-about-agg/stegano-about-agg.component.scss';
+@import '../src/app/stegano-decode/stegano-decode.component.scss';
 
 
 @import url('https://fonts.googleapis.com/css?family=Rowdies&display=swap');
@@ -31,6 +32,7 @@
 @include stegano-decode-agg-theme($stegano-theme, $stegano-colors);
 @include stegano-about-agg-theme($stegano-theme, $stegano-colors);
 @include stegano-about-theme($stegano-theme, $stegano-colors);
+@include stegano-decode-theme($stegano-theme, $stegano-colors);
 
 
 html, body { height: 100%; }

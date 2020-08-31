@@ -1,0 +1,6 @@
+@mixin stegano-decode-theme($theme, $stegano-colors) {
+    .mat-progress-spinner {
+        color: white;
+        margin: 0 auto;
+    }
+}

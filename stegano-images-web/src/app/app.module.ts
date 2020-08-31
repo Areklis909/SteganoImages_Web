@@ -18,6 +18,7 @@ import { SteganoDropboxComponent } from './stegano-dropbox/stegano-dropbox.compo
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SteganoDecodeComponent } from './stegano-decode/stegano-decode.component';
@@ -63,7 +64,8 @@ import { SteganoDropboxDecodeComponent } from './stegano-dropbox-decode/stegano-
     MatStepperModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
