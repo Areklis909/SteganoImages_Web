@@ -43,7 +43,7 @@ class ImageHandler:
 
     def sanityCheck(self, path):
         if path[-1] == '/':
-            path + '/'
+            path = path + '/'
         self.path = path
         if self.formatOk() == False:
             raise IncorrectImageFormatException(self.acceptedFormats)
