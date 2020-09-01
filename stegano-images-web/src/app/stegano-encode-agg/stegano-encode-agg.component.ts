@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SteganoConnectorService } from '../stegano-connector.service';
 
 @Component({
   selector: 'app-stegano-encode-agg',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SteganoEncodeAggComponent implements OnInit {
 
-  constructor() { }
+  readonly encodeStr = 'Encode';
+
+  constructor(private connector: SteganoConnectorService) { }
 
   ngOnInit(): void {
+    this.connector.headerTitleSubject.next(this.encodeStr);
   }
 
 }

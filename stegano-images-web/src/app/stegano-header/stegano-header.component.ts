@@ -9,10 +9,14 @@ import { SteganoConnectorService } from '../stegano-connector.service';
 export class SteganoHeaderComponent implements OnInit {
 
   private menuVisible = true;
+  public header = '';
 
   constructor(private steganoConnector: SteganoConnectorService) { }
 
   ngOnInit(): void {
+    this.steganoConnector.headerTitleSubject.subscribe((headerString) => {
+      this.header = headerString;
+    });
   }
 
   public toggleMenu(): void {

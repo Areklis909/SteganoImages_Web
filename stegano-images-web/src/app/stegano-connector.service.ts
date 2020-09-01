@@ -9,6 +9,7 @@ export class SteganoConnectorService {
   public menuToggleSubject = new Subject<boolean>();
   public decodedMessageSubject = new Subject<string>();
   public elementDropped = new Subject<boolean>();
+  public headerTitleSubject = new Subject<string>();
 
   constructor() { }
 }
