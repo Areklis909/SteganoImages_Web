@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { serverUrl } from '../stegano-dropbox/messages';
+import { SteganoConnectorService } from '../stegano-connector.service';
 
 @Component({
   selector: 'app-stegano-dropbox-encode',
@@ -16,7 +17,8 @@ export class SteganoDropboxEncodeComponent implements OnInit {
   readonly removeApi = '/remove';
   readonly contentDisposition = 'Content-Disposition';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private connector: SteganoConnectorService) { }
 
   ngOnInit(): void {
   }
@@ -30,6 +32,8 @@ export class SteganoDropboxEncodeComponent implements OnInit {
     if (event.dataTransfer.files.length === 0) {
       return;
     }
+
+    this.connector.elementDroppedOnEncode.next(true);
 
     const formMsg = new FormData();
     const file = event.dataTransfer.files[0];
@@ -53,6 +57,7 @@ export class SteganoDropboxEncodeComponent implements OnInit {
       link.download = this.getFilenameFromHeader(response.headers.get(this.contentDisposition));
       link.href = URL.createObjectURL(response.body);
       link.click();
+      this.connector.elementDroppedOnEncode.next(false);
     });
   }
 

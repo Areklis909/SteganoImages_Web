@@ -16,7 +16,7 @@ export class SteganoDecodeComponent implements OnInit {
   constructor(private connector: SteganoConnectorService) { }
 
   ngOnInit(): void {
-    this.connector.elementDropped.subscribe(dropped => {
+    this.connector.elementDroppedOnDecode.subscribe(dropped => {
       this.dropped = true;
     });
 

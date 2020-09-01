@@ -26,3 +26,10 @@
         </mat-vertical-stepper>
     </mat-card-content>
 </mat-card>
+<mat-card *ngIf="showSpinner">
+    <mat-card-content>
+        <mat-progress-spinner [mode]="spinnerMode">
+
+        </mat-progress-spinner>
+    </mat-card-content>
+</mat-card>

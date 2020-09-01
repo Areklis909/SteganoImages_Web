@@ -26,7 +26,7 @@ export class SteganoDropboxDecodeComponent implements OnInit {
       return;
     }
 
-    this.connector.elementDropped.next(true);
+    this.connector.elementDroppedOnDecode.next(true);
 
     const formMsg = new FormData();
     const file = event.dataTransfer.files[0];
