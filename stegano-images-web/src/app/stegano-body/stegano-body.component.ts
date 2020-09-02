@@ -11,13 +11,18 @@ export class SteganoBodyComponent implements OnInit {
 
   drawerOpened = false;
   hideHeaderBar = false;
+  display = '';
 
   constructor(private router: Router,
               private connector: SteganoConnectorService) { }
 
   ngOnInit(): void {
     this.connector.hideHeaderBar.subscribe((hide) => {
-      this.hideHeaderBar = hide;
+      if (hide) {
+        this.display = 'none';
+      } else {
+        this.display = '';
+      }
     });
   }
 

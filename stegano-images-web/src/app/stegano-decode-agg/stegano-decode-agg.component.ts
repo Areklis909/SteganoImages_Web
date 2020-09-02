@@ -14,7 +14,8 @@ export class SteganoDecodeAggComponent implements OnInit {
 
   ngOnInit(): void {
     this.connector.headerTitleSubject.next(this.decodeStr);
-
-  }
+    setTimeout( () => {
+      this.connector.hideHeaderBar.next(false);
+    });  }
 
 }

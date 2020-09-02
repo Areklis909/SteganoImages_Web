@@ -10,7 +10,9 @@ export class SteganoWelcomeComponent implements OnInit {
 
   constructor(private connector: SteganoConnectorService) { }
   ngOnInit(): void {
-    this.connector.hideHeaderBar.next(true);
+    setTimeout( () => {
+      this.connector.hideHeaderBar.next(true);
+    });
   }
 
 }

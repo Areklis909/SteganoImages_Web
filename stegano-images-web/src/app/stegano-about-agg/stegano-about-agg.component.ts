@@ -14,6 +14,8 @@ export class SteganoAboutAggComponent implements OnInit {
 
   ngOnInit(): void {
     this.connector.headerTitleSubject.next(this.aboutStr);
-  }
+    setTimeout( () => {
+      this.connector.hideHeaderBar.next(false);
+    });  }
 
 }
