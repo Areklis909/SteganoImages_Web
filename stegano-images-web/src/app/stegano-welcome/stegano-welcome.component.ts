@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SteganoConnectorService } from '../stegano-connector.service';
 
 @Component({
   selector: 'app-stegano-welcome',
@@ -7,12 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SteganoWelcomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private connector: SteganoConnectorService) { }
   ngOnInit(): void {
-  }
-
-  public arrowDownClicked(): void {
-
+    this.connector.hideHeaderBar.next(true);
   }
 
 }

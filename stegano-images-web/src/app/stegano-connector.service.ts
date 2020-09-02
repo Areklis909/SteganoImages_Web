@@ -11,6 +11,7 @@ export class SteganoConnectorService {
   public elementDroppedOnDecode = new Subject<boolean>();
   public headerTitleSubject = new Subject<string>();
   public elementDroppedOnEncode = new Subject<boolean>();
+  public hideHeaderBar = new Subject<boolean>();
 
   constructor() { }
 }
