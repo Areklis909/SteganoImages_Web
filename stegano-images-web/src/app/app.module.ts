@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SteganoBodyComponent } from './stegano-body/stegano-body.component';
-import { MatTabsModule } from '@angular/material/tabs';
+// import { MatTabsModule } from '@angular/material/tabs';
 import { SteganoPanelComponent } from './stegano-panel/stegano-panel.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,6 +31,7 @@ import { SteganoAboutAggComponent } from './stegano-about-agg/stegano-about-agg.
 import { HttpClientModule } from '@angular/common/http';
 import { SteganoDropboxEncodeComponent } from './stegano-dropbox-encode/stegano-dropbox-encode.component';
 import { SteganoDropboxDecodeComponent } from './stegano-dropbox-decode/stegano-dropbox-decode.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,7 @@ import { SteganoDropboxDecodeComponent } from './stegano-dropbox-decode/stegano-
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatTabsModule,
+    // MatTabsModule,
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
@@ -65,7 +67,9 @@ import { SteganoDropboxDecodeComponent } from './stegano-dropbox-decode/stegano-
     ReactiveFormsModule,
     FlexLayoutModule,
     HttpClientModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FormsModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
