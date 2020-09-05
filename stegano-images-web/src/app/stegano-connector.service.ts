@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { DecodedMessage } from './interfaces/interfaces';
+
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +9,7 @@ import { Subject } from 'rxjs';
 export class SteganoConnectorService {
 
   public menuToggleSubject = new Subject<boolean>();
-  public decodedMessageSubject = new Subject<string>();
+  public decodedMessageSubject = new Subject<DecodedMessage>();
   public elementDroppedOnDecode = new Subject<boolean>();
   public headerTitleSubject = new Subject<string>();
   public elementDroppedOnEncode = new Subject<boolean>();

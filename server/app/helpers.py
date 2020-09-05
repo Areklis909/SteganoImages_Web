@@ -4,27 +4,33 @@ import imghdr
 import subprocess
 import io
 import secrets
-from flask import Flask, request, send_from_directory
+import json
+from flask import Flask, request, send_from_directory, jsonify
 from flask_cors import CORS
+
 
 def extractImage():
     if(len(request.files) == 0):
         raise NoImageException()
     return request.files['image']
 
+
 class NoImageException(Exception):
     def __init__(self, message='Image not found in the message'):
         self.message = message
         super().__init__(self.message)
+
 
 class IncorrectImageFormatException(Exception):
     def __init__(self, formats, message="Format of the image is not correct. Accepted formats: "):
         self.message = message + str(formats)
         super().__init__(self.message)
 
+
 class ImageNotSavedException(Exception):
     def __init__(self, message="File is not saved!"):
         super().__init__(message)
+
 
 class ImageHandler:
     def __init__(self, image, path):
@@ -60,7 +66,7 @@ class ImageHandler:
         sha = hashlib.sha256(self.image.filename.encode(self.encoding) + hashData.encode(self.encoding) +
                              str(time.time_ns()).encode(self.encoding))
         return sha.hexdigest()
-    
+
     def getBasename(self):
         return self.basename
 
@@ -75,8 +81,8 @@ class ImageHandler:
     def saveImage(self):
         self.basename = self.hashImage()
         self.fullPath = self.path + self.basename + '.' + self.getFormat()
-        print('Saving image: ' + self.fullPath)
         self.image.save(self.fullPath)
+
 
 class ImageEncoder(ImageHandler):
     def __init__(self, image):
@@ -93,7 +99,8 @@ class ImageEncoder(ImageHandler):
     def encode(self, msg):
         subprocess.call([self.binary, '--mode', 'encoding', '--input',
                          self.getFullPath(), '--output', self.getOutputFilename(), '--message', msg])
-        response = send_from_directory(self.outputPath, self.getOutputBasename(), as_attachment=True)
+        response = send_from_directory(
+            self.outputPath, self.getOutputBasename(), as_attachment=True)
         response.headers[self.exposeHeaders] = self.contentDisposition
         response.headers[self.allowHeaders] = self.contentDisposition
         subprocess.call(['rm', self.getFullPath()])
@@ -111,9 +118,15 @@ class ImageDecoder(ImageHandler):
 
     def decode(self):
         outputFile = self.getOutputFullPath()
-        subprocess.call([self.binary, '--mode', 'decoding', '--input',
-                self.getFullPath(), '--message-file', outputFile])
+        try:
+            retCode = subprocess.check_output([self.binary, '--mode', 'decoding', '--input',
+                                       self.getFullPath(), '--message-file', outputFile])
+        except subprocess.CalledProcessError as e:
+            ret = {'code': 400, 'text': str(e.output.decode('ascii'))}
+            return jsonify(**ret)
+            
         with open(outputFile) as f:
             data = f.read()
         subprocess.call(['rm', self.getFullPath()])
-        return data
+        ret = {'code': 200, 'text': str(data)}
+        return jsonify(**ret)

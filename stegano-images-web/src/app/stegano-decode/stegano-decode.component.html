@@ -12,10 +12,10 @@
 </mat-card>
 <mat-card *ngIf="messageReceived">
     <mat-card-content>
-        <div>
+        <div *ngIf="respOk">
             Decoded message:
         </div>
-        <div class="decoded">
+        <div class="decoded" [style.color]="msgColor">
             {{ decodedMessage }}
         </div>
     </mat-card-content>

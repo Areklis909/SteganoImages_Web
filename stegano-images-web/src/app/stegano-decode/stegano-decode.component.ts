@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SteganoConnectorService } from '../stegano-connector.service';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { DecodedMessage } from '../interfaces/interfaces';
+
 @Component({
   selector: 'app-stegano-decode',
   templateUrl: './stegano-decode.component.html',
@@ -8,10 +10,13 @@ import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 })
 export class SteganoDecodeComponent implements OnInit {
 
-  private decodedMessage = '';
+  public decodedMessage = '';
   public messageReceived = false;
   public dropped = false;
+  public respOk = true;
+  public msgColor = '';
   public spinnerMode: ProgressSpinnerMode = 'indeterminate';
+  readonly alarmColor = 'red';
 
   constructor(private connector: SteganoConnectorService) { }
 
@@ -21,7 +26,9 @@ export class SteganoDecodeComponent implements OnInit {
     });
 
     this.connector.decodedMessageSubject.subscribe(response => {
-      this.decodedMessage = response;
+      this.respOk = (response.code === 200);
+      this.msgColor = (response.code === 200) ? '' : this.alarmColor;
+      this.decodedMessage = response.text;
       this.messageReceived = true;
       this.dropped = false;
     });
