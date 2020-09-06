@@ -40,8 +40,11 @@ export class SteganoDecodeComponent implements OnInit {
       if (response.code !== 200) {
         this.hideDecodedMessage = false;
       }
-      this.allDots = Array(this.message.length).join(this.blackCircleSign);
+      this.allDots = Array(this.message.length + 1).join(this.blackCircleSign);
       this.decodedMessage = this.hideDecodedMessage ? this.allDots : this.message;
+      console.log(this.message.length);
+      console.log(this.message);
+      console.log(this.allDots);
     });
   }
 
@@ -55,7 +58,7 @@ export class SteganoDecodeComponent implements OnInit {
       this.decodedMessage = this.message;
     }
   }
-  
+
   public copyMessage(): void {
     const messageArea = document.createElement('textarea');
     messageArea.style.position = 'fixed';
