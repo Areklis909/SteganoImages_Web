@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SteganoBodyComponent } from './stegano-body/stegano-body.component';
-// import { MatTabsModule } from '@angular/material/tabs';
 import { SteganoPanelComponent } from './stegano-panel/stegano-panel.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,10 +27,12 @@ import { SteganoWelcomeComponent } from './stegano-welcome/stegano-welcome.compo
 import { SteganoEncodeAggComponent } from './stegano-encode-agg/stegano-encode-agg.component';
 import { SteganoDecodeAggComponent } from './stegano-decode-agg/stegano-decode-agg.component';
 import { SteganoAboutAggComponent } from './stegano-about-agg/stegano-about-agg.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SteganoDropboxEncodeComponent } from './stegano-dropbox-encode/stegano-dropbox-encode.component';
 import { SteganoDropboxDecodeComponent } from './stegano-dropbox-decode/stegano-dropbox-decode.component';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { HttpInterceptorService } from './http-interceptor.service';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,6 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    // MatTabsModule,
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
@@ -69,9 +69,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     HttpClientModule,
     MatProgressSpinnerModule,
     FormsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    ToastrModule.forRoot(),
   ],
-  providers: [],
+  providers: [  {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true} ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

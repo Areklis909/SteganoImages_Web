@@ -3,22 +3,18 @@
         <app-stegano-dropbox-decode></app-stegano-dropbox-decode>
     </mat-card-content>
 </mat-card>
-<mat-card *ngIf="!messageReceived && dropped">
+<mat-card *ngIf="showSpinner">
     <mat-card-content>
         <mat-progress-spinner [mode]="spinnerMode">
 
         </mat-progress-spinner>
     </mat-card-content>
 </mat-card>
-<mat-card *ngIf="messageReceived">
+<mat-card *ngIf="!showSpinner && messageReceived">
     <mat-card-content>
-        <div class="decoded" [style.color]="msgColor" *ngIf="!respOk">
-            {{ decodedMessage }}
-        </div>
-        <mat-form-field appearance="fill" *ngIf="respOk">
+        <mat-form-field appearance="fill">
             <mat-label>Decoded message</mat-label>
-            <textarea id="messageArea" [(ngModel)]="decodedMessage" matInput
-                [type]="hideDecodedMessage ? 'password' : 'text'" [readonly]="true"></textarea>
+            <textarea id="messageArea" [(ngModel)]="decodedMessage" matInput [readonly]="true"></textarea>
             <button mat-icon-button matSuffix (click)="showHide()" matTooltip="Show/Hide">
                 <mat-icon>{{hideDecodedMessage ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>

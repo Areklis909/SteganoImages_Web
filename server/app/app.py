@@ -8,15 +8,29 @@ if __name__ == '__main__':
 
 @app.route('/encode', methods=['POST'])
 def encode():
-    encoder = ImageEncoder(extractImage())
-    encoder.saveImage()
-    return encoder.encode(request.form['msg'])
+    try:
+        encoder = ImageEncoder(extractImage())
+        encoder.saveImage()
+        return encoder.encode(request.form['msg'])
+    except subprocess.CalledProcessError as e:
+        ret = str(e.output.decode('ascii'))
+        return ret, 500
+    except (IncorrectImageFormatException, NoImageException, ImageNotSavedException) as e:
+        ret = str(e.message)
+        return ret, 500
 
 @app.route('/decode', methods=['POST'])
 def decode():
-    decoder = ImageDecoder(extractImage())
-    decoder.saveImage()
-    return decoder.decode()
+    try:
+        decoder = ImageDecoder(extractImage())
+        decoder.saveImage()
+        return decoder.decode()
+    except subprocess.CalledProcessError as e:
+        ret = str(e.output.decode('ascii'))
+        return ret, 500
+    except (IncorrectImageFormatException, NoImageException, ImageNotSavedException) as e:
+        ret = str(e.message)
+        return ret, 500
 
 @app.route('/', methods=['GET'])
 def hello():

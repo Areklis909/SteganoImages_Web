@@ -12,13 +12,14 @@ export class SteganoDecodeComponent implements OnInit {
   public decodedMessage = '';
   public message = '';
   public messageReceived = false;
-  public dropped = false;
+  public showSpinner = false;
   public respOk = true;
   public msgColor = '';
   public spinnerMode: ProgressSpinnerMode = 'indeterminate';
   public hideDecodedMessage = true;
   public allDots = '';
   public showHideTooltip = '';
+  public errorMsg = '';
   readonly alarmColor = 'red';
   readonly blackCircleSign = '●';
   readonly showStr = 'Show';
@@ -27,24 +28,18 @@ export class SteganoDecodeComponent implements OnInit {
   constructor(private connector: SteganoConnectorService) { }
 
   ngOnInit(): void {
-    this.connector.elementDroppedOnDecode.subscribe(dropped => {
-      this.dropped = true;
+    this.connector.showSpinner.subscribe(show => {
+      this.showSpinner = show;
+      if (show) {
+        this.messageReceived = false;
+      }
     });
 
     this.connector.decodedMessageSubject.subscribe(response => {
-      this.dropped = false;
       this.messageReceived = true;
-      this.message = response.text;
-      this.respOk = (response.code === 200);
-      this.msgColor = (response.code === 200) ? '' : this.alarmColor;
-      if (response.code !== 200) {
-        this.hideDecodedMessage = false;
-      }
+      this.message = response;
       this.allDots = Array(this.message.length + 1).join(this.blackCircleSign);
       this.decodedMessage = this.hideDecodedMessage ? this.allDots : this.message;
-      console.log(this.message.length);
-      console.log(this.message);
-      console.log(this.allDots);
     });
   }
 

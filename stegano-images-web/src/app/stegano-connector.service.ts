@@ -9,8 +9,8 @@ import { DecodedMessage } from './interfaces/interfaces';
 export class SteganoConnectorService {
 
   public menuToggleSubject = new Subject<boolean>();
-  public decodedMessageSubject = new Subject<DecodedMessage>();
-  public elementDroppedOnDecode = new Subject<boolean>();
+  public decodedMessageSubject = new Subject<string>();
+  public showSpinner = new Subject<boolean>();
   public headerTitleSubject = new Subject<string>();
   public elementDroppedOnEncode = new Subject<boolean>();
   public hideHeaderBar = new Subject<boolean>();

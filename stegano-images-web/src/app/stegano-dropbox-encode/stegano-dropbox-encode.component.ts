@@ -48,17 +48,18 @@ export class SteganoDropboxEncodeComponent implements OnInit {
       responseType: 'blob' as 'json' // important to get response as a binary blob
     };
 
-    this.http.post<any>(`${serverUrl}${this.encodeApi}`, formMsg, httpOptions).pipe(
-      catchError((err) => {
-        return of(err);
-      })
-    ).subscribe((response) => {
+    this.http.post<any>(`${serverUrl}${this.encodeApi}`, formMsg, httpOptions).subscribe(
+    (response) => {
       const link = document.createElement('a');
       link.download = this.getFilenameFromHeader(response.headers.get(this.contentDisposition));
       link.href = URL.createObjectURL(response.body);
       link.click();
       this.connector.elementDroppedOnEncode.next(false);
-    });
+    },
+    (err) => {
+      console.log(err);
+    }
+    );
   }
 
 }

@@ -24,7 +24,7 @@ export class SteganoDropboxDecodeComponent implements OnInit {
       return;
     }
 
-    this.connector.elementDroppedOnDecode.next(true);
+    this.connector.showSpinner.next(true);
 
     const formMsg = new FormData();
     const file = event.dataTransfer.files[0];
@@ -38,9 +38,16 @@ export class SteganoDropboxDecodeComponent implements OnInit {
       responseType: 'json' as const // important to get response as a binary blob
     };
 
-    this.http.post<DecodedMessage>(`${serverUrl}${this.decodeApi}`, formMsg, httpOptions).subscribe((resp) => {
-      this.connector.decodedMessageSubject.next(resp.body);
-    });
+    this.http.post<string>(`${serverUrl}${this.decodeApi}`, formMsg, httpOptions).subscribe(
+      (resp) => {
+        this.connector.decodedMessageSubject.next(resp.body);
+        this.connector.showSpinner.next(false);
+      },
+      (err) => {
+        this.connector.showSpinner.next(false);
+        console.log(err);
+      }
+    );
   }
 
 

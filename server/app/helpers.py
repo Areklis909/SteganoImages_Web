@@ -97,8 +97,8 @@ class ImageEncoder(ImageHandler):
         return self.outputPath + self.getOutputBasename()
 
     def encode(self, msg):
-        subprocess.call([self.binary, '--mode', 'encoding', '--input',
-                         self.getFullPath(), '--output', self.getOutputFilename(), '--message', msg])
+        ret_code = subprocess.check_output([self.binary, '--mode', 'encoding', '--input',
+                    self.getFullPath(), '--output', self.getOutputFilename(), '--message', msg])
         response = send_from_directory(
             self.outputPath, self.getOutputBasename(), as_attachment=True)
         response.headers[self.exposeHeaders] = self.contentDisposition
@@ -118,15 +118,9 @@ class ImageDecoder(ImageHandler):
 
     def decode(self):
         outputFile = self.getOutputFullPath()
-        try:
-            retCode = subprocess.check_output([self.binary, '--mode', 'decoding', '--input',
-                                       self.getFullPath(), '--message-file', outputFile])
-        except subprocess.CalledProcessError as e:
-            ret = {'code': 400, 'text': str(e.output.decode('ascii'))}
-            return jsonify(**ret)
-            
+        ret_code = subprocess.check_output([self.binary, '--mode', 'decoding', '--input',
+                                    self.getFullPath(), '--message-file', outputFile])
         with open(outputFile) as f:
             data = f.read()
         subprocess.call(['rm', self.getFullPath()])
-        ret = {'code': 200, 'text': str(data)}
-        return jsonify(**ret)
+        return jsonify(data)
