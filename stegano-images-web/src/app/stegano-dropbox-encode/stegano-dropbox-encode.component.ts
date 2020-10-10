@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { serverUrl } from '../stegano-dropbox/messages';
 import { SteganoConnectorService } from '../stegano-connector.service';
 
@@ -57,6 +55,7 @@ export class SteganoDropboxEncodeComponent implements OnInit {
       this.connector.elementDroppedOnEncode.next(false);
     },
     (err) => {
+      this.connector.elementDroppedOnEncode.next(false);
       console.log(err);
     }
     );

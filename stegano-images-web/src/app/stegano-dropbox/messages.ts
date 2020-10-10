@@ -1,6 +1,3 @@
 
-export const serverUrl = 'http://localhost:5000';
+export const serverUrl = 'http://localhost:80';
 
-export interface Message {
-    file: any;
-}
