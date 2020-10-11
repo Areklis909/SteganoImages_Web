@@ -8,10 +8,10 @@ import { SteganoAboutAggComponent } from './stegano-about-agg/stegano-about-agg.
 import { SteganoWelcomeComponent } from './stegano-welcome/stegano-welcome.component';
 
 const routes: Routes = [
-  { path: 'encode', component: SteganoEncodeAggComponent },
-  { path: 'decode', component: SteganoDecodeAggComponent },
+  { path: 'enc', component: SteganoEncodeAggComponent },
+  { path: 'dec', component: SteganoDecodeAggComponent },
   { path: 'about', component: SteganoAboutAggComponent },
-  { path: '', component: SteganoWelcomeComponent }
+  { path: '**', component:  SteganoWelcomeComponent}
 ];
 
 @NgModule({
