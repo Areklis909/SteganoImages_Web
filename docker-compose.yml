@@ -16,8 +16,6 @@ services:
         dockerfile: Dockerfile
     expose:
       - 5000
-    # volumes:
-    #   - ./backend:/usr/src/app
     environment:
       - FLASK_ENV=development
       - FLASK_APP=app.py
