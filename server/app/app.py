@@ -34,4 +34,4 @@ def decode():
 
 @app.route('/', methods=['GET'])
 def hello():
-    return 'Hello world'
+    return 'OK', 200
