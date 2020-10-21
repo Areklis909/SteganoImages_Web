@@ -2,21 +2,42 @@ version: "3"
 services:
   frontend:
     container_name: frontend
-    build:
-      context: ./stegano-images-web
-      dockerfile: Dockerfile
+    image: areklis909/stegano-images-web:0.0.1
     ports:
-      - 80:80
+      - "80:80"
 
   backend:
     restart: always
     container_name: backend
-    build:
-        context: ./server
-        dockerfile: Dockerfile
+    image: areklis909/stegano-images-server:0.0.3
+    ports:
+      - "5000:5000"
     expose:
-      - 5000
+      - "5000"
     environment:
       - FLASK_ENV=development
       - FLASK_APP=app.py
       - FLASK_DEBUG=1
+
+# version: "3"
+# services:
+#   frontend:
+#     container_name: frontend
+#     build:
+#       context: ./stegano-images-web
+#       dockerfile: Dockerfile
+#     ports:
+#       - "80:80"
+
+#   backend:
+#     restart: always
+#     container_name: backend
+#     build:
+#         context: ./server
+#         dockerfile: Dockerfile
+#     expose:
+#       - "5000"
+#     environment:
+#       - FLASK_ENV=development
+#       - FLASK_APP=app.py
+#       - FLASK_DEBUG=1
