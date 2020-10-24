@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { serverUrl } from '../stegano-dropbox/messages';
 import { SteganoConnectorService } from '../stegano-connector.service';
-import { DecodedMessage } from '../interfaces/interfaces';
 
 @Component({
   selector: 'app-stegano-dropbox-decode',

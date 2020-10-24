@@ -9,7 +9,7 @@ services:
   backend:
     restart: always
     container_name: backend
-    image: areklis909/stegano-images-server:0.0.3
+    image: areklis909/stegano-images-server:0.0.4
     expose:
       - "5000"
     environment:

@@ -1,4 +1,4 @@
-FROM areklis909/stegano-images:0.0.2
+FROM areklis909/stegano-images:0.0.3
 
 ENV FLASK_APP app
 
