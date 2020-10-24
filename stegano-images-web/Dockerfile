@@ -16,3 +16,5 @@ FROM nginx:1.19.2
 
 COPY --from=node /app/dist/stegano-images-web /usr/share/nginx/html
 COPY --from=node /app/nginx.conf /etc/nginx/nginx.conf
+EXPOSE 80
+ENTRYPOINT ["nginx","-g","daemon off;"]
