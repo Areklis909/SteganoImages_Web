@@ -1,3 +1,3 @@
 
-export const serverUrl = 'http://backend:80';
+export const serverUrl = 'http://localhost:80';
 
