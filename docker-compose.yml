@@ -7,6 +7,8 @@ services:
       - "80:80"
     links:
       - backend:backend
+    networks:
+      - default
 
   backend:
     restart: always
@@ -18,3 +20,8 @@ services:
       - FLASK_ENV=development
       - FLASK_APP=app.py
       - FLASK_DEBUG=1
+    networks:
+      - default
+
+networks:
+  default:
