@@ -2,10 +2,7 @@ version: "3"
 services:
   frontend:
     container_name: frontend
-    # image: areklis909/stegano-images-web:0.0.3
-    build:
-      context: ./stegano-images-web
-      dockerfile: Dockerfile
+    image: areklis909/stegano-images-web:0.0.3
     ports:
       - "80:80"
 
