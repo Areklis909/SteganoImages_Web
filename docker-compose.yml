@@ -5,6 +5,8 @@ services:
     image: areklis909/stegano-images-web:0.0.3
     ports:
       - "80:80"
+    links:
+      - backend:backend
 
   backend:
     restart: always
