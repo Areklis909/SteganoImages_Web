@@ -6,14 +6,16 @@ services:
     ports:
       - "80:80"
     links:
-      - backend:backend
+      - flask:flask
     networks:
       - default
 
-  backend:
+  flask:
     restart: always
     container_name: backend
     image: areklis909/stegano-images-server:0.0.4
+    ports:
+      - "8080:5000"
     expose:
       - "5000"
     environment:
@@ -21,7 +23,9 @@ services:
       - FLASK_APP=app.py
       - FLASK_DEBUG=1
     networks:
-      - default
+      default:
+        aliases:
+        - backend
 
 networks:
   default:
